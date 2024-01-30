@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar PV Bill Calculator</title>
+    <title>SURIA 16 Solar PV Bill Calculator</title>
     <style>
       #calculateBtn {
         border: none;
@@ -32,6 +32,12 @@
             padding: 10px;
       }
 
+      #KWTBBsaving {
+            border: 1px solid #ccc;
+            padding: 10px;
+      }
+
+
       #MDsaving {
             border: 1px solid #ccc;
             padding: 10px;
@@ -45,10 +51,10 @@
 </head>
 <body>
 
-    <h1>Solar PV Bill Calculator</h1>
+    <h1>SURIA 16: Solar PV Bill Calculator</h1>
 
-    <p><label for="numberOfDays">Number of Days:</label>
-    <input type="number" id="numberOfDays" placeholder="Enter number of days"></p>
+    <p><label for="monthYear">Month/Year:</label>
+    <input type="string" id="monthYear" placeholder="Enter month and year"></p>
 
     <p><label for="pvGeneration">PV Generation (kWh):</label>
     <input type="number" id="pvGeneration" placeholder="Enter PV generation"></p>
@@ -89,7 +95,7 @@
         document.getElementById('calculateBtn').addEventListener('click', function() {
             
           // Get user input
-            const numberOfDays = parseFloat(document.getElementById('numberOfDays').value) || 0;
+            const monthYear = String(document.getElementById('monthYear').value) || 0;
             
             const pvGeneration = parseFloat(document.getElementById('pvGeneration').value) || 0;
             
@@ -145,11 +151,11 @@
            
             const kwtbbWithoutSolar = ((kwtbbConsumptionWithoutSolar + tnbsuppliedOffPeak + mdChargeFromTNB) - 0.1 * (kwtbbConsumptionWithoutSolar + tnbsuppliedOffPeak + mdChargeFromTNB)) * 0.016;
           
-            const kwtbbWithSolar = ((tnbsuppliedOffPeak + tnbsuppliedOffPeak + mdChargeFromTNB) - 0.1 * (kwtbbConsumptionWithoutSolar + tnbsuppliedOffPeak + mdChargeFromTNB)) * 0.016;
+            const kwtbbWithSolar = ((tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB) - 0.1 * (tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB)) * 0.016;
           
             const kwtbbSaving = kwtbbWithoutSolar - kwtbbWithSolar;
            
-            const totalWithSolar = tnbsuppliedOffPeak + tnbsuppliedOffPeak + mdChargeFromTNB + icptWithSolar + kwtbbWithSolar + pvGeneration + discount;
+            const totalWithSolar = tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB + icptWithSolar + kwtbbWithSolar + pvGeneration + discount;
           
             const totalWithoutSolar = priceWithoutSolar + actualMDCharge + icptWithoutSolar + kwtbbWithoutSolar + discount;
           
@@ -172,9 +178,15 @@
             `;
 
             const resultsICPTsaving = `
-                <p>ICPT with Solar      : RM ${icptWithSolar} </p>
-                <p>ICPT withot Solar    : RM ${icptWithoutSolar} </p>
-                <p>Saving from ICPT     : RM ${savingICPT} </p>
+                <p>ICPT with Solar        : RM ${icptWithSolar} </p>
+                <p>ICPT withot Solar      : RM ${icptWithoutSolar} </p>
+                <p>Saving from ICPT       : RM ${savingICPT} </p>
+            `;
+
+            const resultsKWTBBsaving = `
+                <p>KWTBB with Solar       : RM ${kwtbbWithSolar} </p>
+                <p>KWTBB without Solar    : RM ${kwtbbWithoutSolar} </p>
+                <p>Saving from KWTBB      : RM ${kwtbbSaving} </p>
             `;
             
             const resultsTotalsaving = `
@@ -184,11 +196,15 @@
                 <p>Percentage of Saving                 : ${percentageSaving}% </p>
             `;
 
+            document.getElementById('results').innerHTML=monthYear;
+
             document.getElementById('powerGeneration').innerHTML = resultsPowerGen;
 
             document.getElementById('MDsaving').innerHTML = resultsMDsaving;
 
             document.getElementById('ICPTsaving').innerHTML = resultsICPTsaving;
+
+            document.getElementById('KWTBBsaving').innerHTML = resultsKWTBBsaving;
 
             document.getElementById('Totalsaving').innerHTML = resultsTotalsaving;
         });
@@ -208,6 +224,9 @@
 
   <h3>ICPT Saving by using Solar</h3>
   <div id="ICPTsaving"></div>
+
+  <h3>KWTBB Saving by using Solar</h3>
+  <div id="KWTBBsaving"></div>
 
   <h3>Total Saving</h3>
   <div id="Totalsaving"></div>

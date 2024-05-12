@@ -1,235 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURIA 16 Solar PV Bill Calculator</title>
-    <style>
-      #calculateBtn {
-        border: none;
-        background-color: black;
-        color: white;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
-        font-weight: bold;
-        border-radius: 50px;
-        cursor: pointer;
-      }
-
-      #results {
-            margin-top: 20px;
-      }
-
-      #powerGeneration {
-            border: 1px solid #ccc;
-            padding: 10px;
-      }
-
-      #ICPTsaving {
-            border: 1px solid #ccc;
-            padding: 10px;
-      }
-
-      #KWTBBsaving {
-            border: 1px solid #ccc;
-            padding: 10px;
-      }
-
-
-      #MDsaving {
-            border: 1px solid #ccc;
-            padding: 10px;
-      }
-
-      #Totalsaving {
-            border: 1px solid #ccc;
-            padding: 10px;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="text/javascript" src="app.js" charset="UTF-8">
+  </script>
+  <title>SURIA 16 Solar PV Bill Calculator</title>
 </head>
+
 <body>
+  <div id="app">
+    <!-- <div class="logo">
+      <img class="logo-suria16" src="./Logo.png" alt="SURIA 16">
+    </div> -->
+    <div class="container-contact">
+      <div id="main" class="wrap-contact">
+        <form id="solarbillForm" action="results.html" method="post" class="contact-form">
+          <h1 class="contact-form-title">SURIA 16: Solar PV Bill Calculator</h1>
 
-    <h1>SURIA 16: Solar PV Bill Calculator</h1>
+          <!-- pmu and date -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>PMU Location</h4>
+                </span>
+                <div>
+                  <select id="pmu" required>
+                    <option value="1">HPUPM</option>
+                    <option value="2">PMU1</option>
+                    <option value="3">PMU2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>Date</h4>
+                </span>
+                <div>
+                  <input type="date" id="date" name="date" required>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <p><label for="monthYear">Month/Year:</label>
-    <input type="string" id="monthYear" placeholder="Enter month and year"></p>
-
-    <p><label for="pvGeneration">PV Generation (kWh):</label>
-    <input type="number" id="pvGeneration" placeholder="Enter PV generation"></p>
-
-    <p><label for="tnbsuppliedPeak">TNB Supplied Peak (kWh):</label>
-    <input type="number" id="tnbsuppliedPeak" placeholder="Enter Peak Value"></p>
-
-    <p><label for="tnbsuppliedOffPeak">TNB Supplied Off-Peak (kWh):</label>
-    <input type="number" id="tnbsuppliedOffPeak" placeholder="Enter Off-Peak Value"></p>
-
-    <p><label for="tnbRateOffPeak">TNB Rate Off-Peak:</label>
-      <select id="tnbRateOffPeak">
-          <option value="0.292">0.292</option>
-          <option value="0.365">0.365</option>
-      </select></p>
-
-    <p><label for="mdFromTNBBill">Maximum Demand from TNB Bill (kW):</label>
-    <input type="number" id="mdFromTNBBill" placeholder="Enter MD from Bill"></p>
-
-    <p><label for="mdFromSolarMonitoring">Maximum Demand from Solar Monitoring (kW):</label>
-    <input type="number" id="mdFromSolarMonitoring" placeholder="Enter MD from Solar"></p>
-
-    <p><label for="otherChargesWithSolar">Other Charge with Solar (RM):</label>
-    <input type="number" id="otherChargesWithSolar" placeholder="Enter Other Charge with Solar"></p>
-    
-    <p><label for="icptRate">ICPT Rate (RM/kWh):</label>
-      <select id="icptRate">
-          <option value="0.17">0.17</option>
-          <option value="0.2">0.2</option>
-      </select></p>
-    
-    <p><label for="discount">Discount (RM):</label>
-    <input type="number" id="discount" placeholder="Enter Discount"></p>
-
-    <button id="calculateBtn">Calculate</button>
-
-    <script>
-        document.getElementById('calculateBtn').addEventListener('click', function() {
-            
-          // Get user input
-            const monthYear = String(document.getElementById('monthYear').value) || 0;
-            
-            const pvGeneration = parseFloat(document.getElementById('pvGeneration').value) || 0;
-            
-            const tnbsuppliedPeak = parseFloat(document.getElementById('tnbsuppliedPeak').value) || 0;
-            
-            const tnbsuppliedOffPeak = parseFloat(document.getElementById('tnbsuppliedOffPeak').value) || 0;
-
-            const tnbRateOffPeak = parseFloat(document.getElementById('tnbRateOffPeak').value);
-            
-            const mdFromTNBBill = parseFloat(document.getElementById('mdFromTNBBill').value) || 0;
-            
-            const mdFromSolarMonitoring = parseFloat(document.getElementById('mdFromSolarMonitoring').value) || 0;
-            
-            const otherChargesWithSolar = parseFloat(document.getElementById('otherChargesWithSolar').value) || 0;
-
-            const icptRate = parseFloat(document.getElementById('icptRate').value);
-            
-            const discount = parseFloat(document.getElementById('discount').value) || 0;
-           
-            // Constant Data
-            const solarRate = 0.26;
-            const tnbratePeak = 0.365;
-            const mdRate = 30.30;
-
-            // Your JavaScript calculations go here
-            const totalTNBConsumption = tnbsuppliedPeak + tnbsuppliedOffPeak;
-            
-            const totalConsumption = pvGeneration + totalTNBConsumption;
-            
-            const priceWithoutSolar = tnbsuppliedPeak * tnbratePeak + tnbsuppliedOffPeak * tnbRateOffPeak + pvGeneration * tnbratePeak;
-           
-            const tnbsuppliedPeakRM = tnbsuppliedPeak * tnbratePeak;
-            
-            const tnbsuppliedOffPeakRM = tnbsuppliedOffPeak * tnbRateOffPeak;
-            
-            const pvGenerationRM = pvGeneration * solarRate;
-            
-            const actualMD = mdFromTNBBill + mdFromSolarMonitoring;
-            
-            const actualMDCharge = actualMD * mdRate;
-            
-            const mdChargeFromTNB = mdFromTNBBill * mdRate;
-           
-            const savingFromMDCharge = actualMDCharge - mdChargeFromTNB;
-           
-            const icptWithSolar = (tnbsuppliedPeak + tnbsuppliedOffPeak) * icptRate;
-           
-            const icptWithoutSolar = totalConsumption * icptRate;
-           
-            const savingICPT = icptWithoutSolar - icptWithSolar;
-           
-            const kwtbbConsumptionWithoutSolar = (tnbsuppliedPeak + pvGeneration) * tnbratePeak;
-           
-            const kwtbbWithoutSolar = ((kwtbbConsumptionWithoutSolar + tnbsuppliedOffPeak + mdChargeFromTNB) - 0.1 * (kwtbbConsumptionWithoutSolar + tnbsuppliedOffPeak + mdChargeFromTNB)) * 0.016;
+          <!-- pv generation -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>PV Generation (kWh)</h4>
+                </span>
+                <div>
+                  <input type="number" id="pvGeneration" placeholder="Enter PV generation" required>
+                </div>
+              </div>
+            </div>
+          </div>
           
-            const kwtbbWithSolar = ((tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB) - 0.1 * (tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB)) * 0.016;
+          <!-- TNB Supplied -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>TNB Supplied:</h4>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <label>Peak (kWh)</label>
+                </span>
+                <div>
+                  <input type="number" id="tnbsuppliedPeak" placeholder="Enter Peak Value" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <label>Off-Peak (kWh)</label>
+                </span>
+                <div>
+                  <input type="number" id="tnbsuppliedOffPeak" placeholder="Enter Off-Peak Value" required>
+                </div>
+              </div>
+            </div>
+          </div>
           
-            const kwtbbSaving = kwtbbWithoutSolar - kwtbbWithSolar;
-           
-            const totalWithSolar = tnbsuppliedPeak + tnbsuppliedOffPeak + mdChargeFromTNB + icptWithSolar + kwtbbWithSolar + pvGeneration + discount;
+          <!-- TNB Rate Off-Peak and ICPT Rate (RM/kWh) -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>TNB Rate Off-Peak</h4>
+                </span>
+                <div>
+                  <select id="tnbRateOffPeak" required>
+                    <option value="0.292">0.292</option>
+                    <option value="0.365">0.365</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>ICPT Rate (RM/kWh)</h4>
+                </span>
+                <div>
+                  <select id="icptRate" required>
+                    <option value="0.17">0.17</option>
+                    <option value="0.2">0.2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maximum Demand -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>Maximum Demand (MD):</h4>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <label>From TNB Bill (kW)</label>
+                </span>
+                <div>
+                  <input type="number" id="mdFromTNBBill" placeholder="Enter MD from Bill" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <label>From Solar Monitoring (kW)</label>
+                </span>
+                <div>
+                  <input type="number" id="mdFromSolarMonitoring" placeholder="Enter MD from Solar" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other charge and discount -->
+          <div class="row">
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>Other Charge with Solar (RM)</h4>
+                </span>
+                <div>
+                  <input type="number" id="otherChargesWithSolar" placeholder="Enter Other Charge with Solar" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div>
+                <span class="label-input">
+                  <h4>Discount (RM)</h4>
+                </span>
+                <div>
+                  <input type="number" id="discount" placeholder="Enter Discount" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="row">
+            <div class="col-sm">
+              <div class="container-contact-form-btn">
+                <button type="button" id="calculateBtn"><span>
+                  Calculate
+              </span></button>
+              </div>
+            </div>
+          </div>
           
-            const totalWithoutSolar = priceWithoutSolar + actualMDCharge + icptWithoutSolar + kwtbbWithoutSolar + discount;
-          
-            const saving = totalWithoutSolar - totalWithSolar;
-           
-            const ratioFromTNB = totalTNBConsumption / pvGeneration;
-          
-            const percentageSaving = 100 - (totalWithSolar / totalWithoutSolar) * 100;
+        </form>
+      </div> 
+    </div>
 
-            // Display results
-            const resultsPowerGen = `
-                <p>Total TNB Consumption   : ${totalTNBConsumption} kWh</p>
-                <p>PV Generation          : ${pvGeneration} kWh</p>
-            `;
-
-            const resultsMDsaving = `
-                <p>Maximum Demand from TNB Bill       : ${mdFromTNBBill} kW</p>
-                <p>Actual Maximum Demand              : ${actualMD} kW</p>\
-                <p>Saving from Maximum Demand Charge  : ${savingFromMDCharge} kW</p>
-            `;
-
-            const resultsICPTsaving = `
-                <p>ICPT with Solar        : RM ${icptWithSolar} </p>
-                <p>ICPT withot Solar      : RM ${icptWithoutSolar} </p>
-                <p>Saving from ICPT       : RM ${savingICPT} </p>
-            `;
-
-            const resultsKWTBBsaving = `
-                <p>KWTBB with Solar       : RM ${kwtbbWithSolar} </p>
-                <p>KWTBB without Solar    : RM ${kwtbbWithoutSolar} </p>
-                <p>Saving from KWTBB      : RM ${kwtbbSaving} </p>
-            `;
-            
-            const resultsTotalsaving = `
-                <p>Total with Solar       : RM ${totalWithSolar} </p>
-                <p>Total without Solar    : RM ${totalWithoutSolar} </p>
-                <p>Saving                 : RM ${saving} </p>
-                <p>Percentage of Saving                 : ${percentageSaving}% </p>
-            `;
-
-            document.getElementById('results').innerHTML=monthYear;
-
-            document.getElementById('powerGeneration').innerHTML = resultsPowerGen;
-
-            document.getElementById('MDsaving').innerHTML = resultsMDsaving;
-
-            document.getElementById('ICPTsaving').innerHTML = resultsICPTsaving;
-
-            document.getElementById('KWTBBsaving').innerHTML = resultsKWTBBsaving;
-
-            document.getElementById('Totalsaving').innerHTML = resultsTotalsaving;
-        });
-
-
-
-    </script>
-  
-  <h2>Results:</h2>
-  <div id="results"></div>
-
-  <h3>Power Generation</h3>
-  <div id="powerGeneration"></div>
-
-  <h3>Maximum Demand Saving</h3>
-  <div id="MDsaving"></div>
-
-  <h3>ICPT Saving by using Solar</h3>
-  <div id="ICPTsaving"></div>
-
-  <h3>KWTBB Saving by using Solar</h3>
-  <div id="KWTBBsaving"></div>
-
-  <h3>Total Saving</h3>
-  <div id="Totalsaving"></div>
-
+  </div>
+<script src="app.js" charset="UTF-8"></script>
 </body>
 </html>

@@ -1,0 +1,442 @@
+
+@media print {
+    *,:after,:before {
+        text-shadow: none!important;
+        -webkit-box-shadow: none!important;
+        box-shadow: none!important
+    }
+
+    a,a:visited {
+        text-decoration: underline
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")"
+    }
+
+    pre {
+        white-space: pre-wrap!important
+    }
+
+    blockquote,pre {
+        border: 1px solid #999;
+        page-break-inside: avoid
+    }
+
+    thead {
+        display: table-header-group
+    }
+
+    img,tr {
+        page-break-inside: avoid
+    }
+
+    h2,h3,p {
+        orphans: 3;
+        widows: 3
+    }
+
+    h2,h3 {
+        page-break-after: avoid
+    }
+
+    .navbar {
+        display: none
+    }
+
+    .badge {
+        border: 1px solid #000
+    }
+
+    .table {
+        border-collapse: collapse!important
+    }
+
+    .table td,.table th {
+        background-color: #fff!important
+    }
+
+    .table-bordered td,.table-bordered th {
+        border: 1px solid #ddd!important
+    }
+}
+
+@font-face {
+    font-family: rajdhani-regular;
+    src: url(./Rajdhani/Rajdhani-Regular.ttf)
+}
+
+@font-face {
+    font-family: rajdhani-medium;
+    src: url(./Rajdhani/Rajdhani-Medium.ttf)
+}
+
+@font-face {
+    font-family: rajdhani-bold;
+    src: url(./Rajdhani/Rajdhani-Bold.ttf)
+}
+
+@font-face {
+    font-family: rajdhani-semibold;
+    src: url(./Rajdhani/Rajdhani-SemiBold.ttf)
+}
+
+html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*,
+:after,
+:before {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit
+}
+
+@-ms-viewport {
+    width: device-width
+}
+
+h1,h2,h3,h4,h5,h6, label {
+    margin-top: 0;
+    margin-bottom: .5rem
+}
+
+.h4, h4, label {
+    font-size: 1.5rem;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+label {
+    display: block;
+    margin-block-start: .4em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6, label {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit
+}
+
+.h1,h1 {
+    font-size: 2.5rem
+}
+
+.h2,h2 {
+    font-size: 2rem
+}
+
+.h3,h3 {
+    font-size: 1.75rem
+}
+
+.h4,h4, label {
+    font-size: 1.5rem
+}
+
+.h5,h5 {
+    font-size: 1.25rem
+}
+
+.h6,h6 {
+    font-size: 1rem
+}
+
+/* .logo-suria16 {
+    width: 150px;
+    object-fit: contain;
+    object-position: left top;
+    display: block;
+} */
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    height: 100vh;
+    display: block;
+    margin: 8px;
+    background-color: #c8e3ff;
+    /* background-image: url(background.png); 
+    background-repeat: no-repeat;
+    background-size: fill; */
+}
+
+body, html {
+    height: 100%;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.label-input {
+    font-family: rajdhani-regular;
+    font-size: 13px;
+    color: #000;
+    line-height: 1.5;
+
+}
+
+.container-contact {
+    width: 100%;
+    min-height: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.contact-form-title {
+    display: block;
+    font-family: rajdhani-bold;
+    font-size: 39px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.container-contact-form-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 13px;
+}
+
+#calculateBtn {
+    position: absolute;
+    margin-block-start: 1.33em;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    overflow: visible;
+    background-color: #1262b8;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: rajdhani-bold;
+    font-size: 16px;
+    transition: box-shadow 0.15s;
+}
+#calculateBtn:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* #pmu, #date, #pvGeneration, #tnbsuppliedPeak, #tnbsuppliedOffPeak, #tnbRateOffPeak, #mdFromTNBBill, #mdFromSolarMonitoring, #otherChargesWithSolar, #icptRate, #discount  */
+
+input[type=number], input[type=date], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    min-height: 20px;
+    line-height: 20px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%
+}
+
+.wrap-contact {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80%;
+    position: relative;
+    background: #fff;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 42px 55px 45px 55px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+@media (max-width: 576px) {
+    .wrap-contact {
+        padding: 72px 15px 65px 15px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width:540px
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width:720px
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width:960px
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width:1140px
+    }
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%
+}
+
+.row {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
+
+.col-sm {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px
+}
+
+.col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    max-width: 100%
+}
+
+.col-auto {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none
+}
+
+@media (min-width: 576px) {
+    .col-sm {
+        -ms-flex-preferred-size:0;
+        flex-basis: 0;
+        -ms-flex-positive: 1;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        max-width: 100%
+    }
+
+    .col-sm-auto {
+        -ms-flex: 0 0 auto;
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none
+    }
+}
+
+/* @media (min-width: 768px) {
+    body {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (orientation: landscape) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media (orientation: portrait) {
+    body {
+        font-size: 16px;
+    }
+}
+
+
+
+
+  
